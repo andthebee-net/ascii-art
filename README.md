@@ -39,6 +39,34 @@ SMART / CONSTRUCTION / SOLUTIONS 태그라인이 크게 이어집니다 (효과�
    .venv/bin/python glyph_engine.py demo/andthebee_logo.mp4 --play --loop --fill
    ```
 
+## 디에이트랩 로고 버전
+
+<p align="center">
+  <img src="docs/the8lab.png" width="720" alt="The8.Lab 로고와 AX & SMART CONSTRUCTION 태그라인을 아스키 아트로 렌더링한 두 장면">
+</p>
+
+`make_the8lab.py`는 디에이트랩(The8.Lab) 로고(`assets/the8lab-logo.svg`)와 사이트 색으로 10.5초짜리 로고 영상을 만들어요.
+빛나는 펜이 심볼의 두 원을 한 획의 "8"로 그리고, 가운데 막대 두 개가 딸깍 맞물리면 빛이 8자를 따라 계속 돌아요.
+워드마크가 한 글자씩 나온 뒤 AX & SMART / CONSTRUCTION 태그라인이 스캔 라인을 따라 나타나고, 가로형 로고로 끝납니다 (효과음도 직접 합성).
+
+1. 로고 영상 만들기 → `demo/the8lab_logo.mp4`
+
+   ```bash
+   .venv/bin/python make_the8lab.py
+   ```
+
+2. 아스키 아트 영상으로 변환 → `out/the8lab_logo.glyph.mp4`
+
+   ```bash
+   .venv/bin/python glyph_engine.py demo/the8lab_logo.mp4
+   ```
+
+3. 터미널에서 실시간 재생 (소리 포함, `ctrl+c`로 종료)
+
+   ```bash
+   .venv/bin/python glyph_engine.py demo/the8lab_logo.mp4 --play --loop --fill
+   ```
+
 ## 준비
 
 - **macOS** 기준 (Menlo, Apple SD Gothic Neo, Avenir Next 폰트 사용 — 다른 OS는 `glyph_engine.py`의 `FONTS`에 폰트 경로를 추가)
@@ -113,6 +141,8 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `make_logo.py` | 앤더비 로고 영상 생성기 (SVG 마크를 직접 래스터화해 애니메이션 + 효과음) |
 | `make_demo.py` | 콩이 & 귤이 데모 영상 생성기 (Pillow로 그린 캐릭터 애니메이션 + numpy 칩튠) |
 | `assets/andthebee-mark.svg` | 앤더비 로고 마크 (andthebee.net) |
+| `make_the8lab.py` | 디에이트랩 로고 영상 생성기 (심볼의 두 원을 한 획의 8자로 그리는 애니메이션 + 효과음) |
+| `assets/the8lab-logo.svg` | 디에이트랩 로고 (the8lab.co.kr) |
 | `requirements.txt` | numpy, pillow |
 | `docs/` | README 미리보기 이미지 |
 
