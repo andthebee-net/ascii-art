@@ -1,0 +1,9 @@
+# local environment
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# generated media - rebuild with make_demo.py / glyph_engine.py
+demo/
+out/
