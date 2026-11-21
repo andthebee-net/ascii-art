@@ -49,6 +49,28 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 
 내 영상도 그대로 넣으면 됩니다: `.venv/bin/python glyph_engine.py 내영상.mp4` → `out/내영상.glyph.mp4`
 
+## 앤더비 로고 버전
+
+<p align="center">
+  <img src="docs/logo.png" width="720" alt="앤더비 로고와 SMART CONSTRUCTION SOLUTIONS 태그라인을 아스키 아트로 렌더링한 두 장면">
+</p>
+
+`make_logo.py`는 앤더비 로고 마크(`assets/andthebee-mark.svg`)와 브랜드 컬러로 10.5초짜리 로고 영상을 만들어요.
+"A"가 솟아오르고, 벌이 윙윙 날아와 제자리에 앉고, ANDTHEBEE 워드마크와 컬러 블록이 차례로 나온 뒤,
+SMART / CONSTRUCTION / SOLUTIONS 태그라인이 크게 이어집니다 (효과음도 직접 합성).
+
+```bash
+.venv/bin/python make_logo.py
+```
+
+```bash
+.venv/bin/python glyph_engine.py demo/andthebee_logo.mp4
+```
+
+```bash
+.venv/bin/python glyph_engine.py demo/andthebee_logo.mp4 --play --loop --fill
+```
+
 ## 옵션
 
 | 옵션 | 설명 |
@@ -81,6 +103,8 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 |---|---|
 | `glyph_engine.py` | 엔진 — 영상 → 아스키 아트 영상 / 터미널 재생 |
 | `make_demo.py` | 데모 영상 생성기 (Pillow로 그린 캐릭터 애니메이션 + numpy 칩튠) |
+| `make_logo.py` | 앤더비 로고 영상 생성기 (SVG 마크를 직접 래스터화해 애니메이션 + 효과음) |
+| `assets/andthebee-mark.svg` | 앤더비 로고 마크 (andthebee.net) |
 | `requirements.txt` | numpy, pillow |
 | `docs/` | README 미리보기 이미지 |
 
