@@ -42,7 +42,7 @@ SMART / CONSTRUCTION / SOLUTIONS 태그라인이 크게 이어집니다 (효과�
 ## 디에이트랩 로고 버전
 
 <p align="center">
-  <img src="docs/the8lab.png" width="720" alt="The8.Lab 로고와 AX & SMART CONSTRUCTION 태그라인을 아스키 아트로 렌더링한 두 장면">
+  <img src="docs/the8lab.gif" width="480" alt="The8.Lab 로고가 컬러 아스키 아트로 그려지는 애니메이션">
 </p>
 
 `make_the8lab.py`는 디에이트랩(The8.Lab) 로고(`assets/the8lab-logo.svg`)와 사이트 색으로 10.5초짜리 로고 영상을 만들어요.
