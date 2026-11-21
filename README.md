@@ -3,51 +3,11 @@
 영상을 **컬러 아스키 아트 영상**으로 바꿔 주는 작은 파이썬 엔진입니다. 터미널에서 실시간으로 재생할 수도 있어요.
 
 <p align="center">
-  <img src="docs/preview.gif" width="480" alt="오리지널 캐릭터 콩이와 귤이가 아스키 아트로 춤추는 미리보기">
+  <img src="docs/logo.gif" width="480" alt="앤더비 로고가 컬러 아스키 아트로 그려지는 애니메이션">
 </p>
 
 프레임마다 각 칸의 밝기에 맞는 글자(`. : ; + = * o a e m # % & 8 @`)를 고르고,
 윤곽선 위에는 방향에 맞는 획(`| / - \`)을 놓은 뒤 원본 색을 입힙니다.
-
-| 스튜디오 레이아웃 (1080×1920 영상) | 터미널 실시간 재생 |
-|:---:|:---:|
-| <img src="docs/studio.png" width="270" alt="스튜디오 레이아웃: 위에는 아스키 아트, 아래에는 엔진 코드가 스크롤"> | <img src="docs/terminal.png" width="440" alt="터미널에서 컬러 아스키로 재생되는 화면"> |
-
-## 준비
-
-- **macOS** 기준 (Menlo, Apple SD Gothic Neo 폰트 사용 — 다른 OS는 `glyph_engine.py`의 `FONTS`에 폰트 경로를 추가)
-- **Python 3.9+**
-- **ffmpeg** (`ffprobe`, 터미널 재생 소리용 `ffplay` 포함)
-
-```bash
-brew install ffmpeg
-```
-
-```bash
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-```
-
-## 빠르게 해보기
-
-1. 데모 영상 만들기 — 오리지널 캐릭터 **콩이(완두콩 새싹) & 귤이(귤)** 의 댄스 + 직접 합성한 칩튠 (`demo/kongi_gyuli.mp4`)
-
-   ```bash
-   .venv/bin/python make_demo.py
-   ```
-
-2. 아스키 아트 영상으로 변환 → `out/kongi_gyuli.glyph.mp4`
-
-   ```bash
-   .venv/bin/python glyph_engine.py demo/kongi_gyuli.mp4
-   ```
-
-3. 터미널에서 실시간 재생 (소리 포함, `ctrl+c`로 종료)
-
-   ```bash
-   .venv/bin/python glyph_engine.py demo/kongi_gyuli.mp4 --play --loop --fill
-   ```
-
-내 영상도 그대로 넣으면 됩니다: `.venv/bin/python glyph_engine.py 내영상.mp4` → `out/내영상.glyph.mp4`
 
 ## 앤더비 로고 버전
 
@@ -59,17 +19,65 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 "A"가 솟아오르고, 벌이 윙윙 날아와 제자리에 앉고, ANDTHEBEE 워드마크와 컬러 블록이 차례로 나온 뒤,
 SMART / CONSTRUCTION / SOLUTIONS 태그라인이 크게 이어집니다 (효과음도 직접 합성).
 
+처음이라면 먼저 아래 [준비](#준비)를 한 번 해 주세요.
+
+1. 로고 영상 만들기 → `demo/andthebee_logo.mp4`
+
+   ```bash
+   .venv/bin/python make_logo.py
+   ```
+
+2. 아스키 아트 영상으로 변환 → `out/andthebee_logo.glyph.mp4`
+
+   ```bash
+   .venv/bin/python glyph_engine.py demo/andthebee_logo.mp4
+   ```
+
+3. 터미널에서 실시간 재생 (소리 포함, `ctrl+c`로 종료)
+
+   ```bash
+   .venv/bin/python glyph_engine.py demo/andthebee_logo.mp4 --play --loop --fill
+   ```
+
+## 준비
+
+- **macOS** 기준 (Menlo, Apple SD Gothic Neo, Avenir Next 폰트 사용 — 다른 OS는 `glyph_engine.py`의 `FONTS`에 폰트 경로를 추가)
+- **Python 3.9+**
+- **ffmpeg** (`ffprobe`, 터미널 재생 소리용 `ffplay` 포함)
+
 ```bash
-.venv/bin/python make_logo.py
+brew install ffmpeg
 ```
 
 ```bash
-.venv/bin/python glyph_engine.py demo/andthebee_logo.mp4
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+```
+
+## 콩이 & 귤이 데모
+
+<p align="center">
+  <img src="docs/preview.gif" width="480" alt="오리지널 캐릭터 콩이와 귤이가 아스키 아트로 춤추는 미리보기">
+</p>
+
+`make_demo.py`는 오리지널 캐릭터 **콩이(완두콩 새싹) & 귤이(귤)** 의 댄스 영상을 칩튠과 함께 만들어요.
+
+| 스튜디오 레이아웃 (1080×1920 영상) | 터미널 실시간 재생 |
+|:---:|:---:|
+| <img src="docs/studio.png" width="270" alt="스튜디오 레이아웃: 위에는 아스키 아트, 아래에는 엔진 코드가 스크롤"> | <img src="docs/terminal.png" width="440" alt="터미널에서 컬러 아스키로 재생되는 화면"> |
+
+```bash
+.venv/bin/python make_demo.py
 ```
 
 ```bash
-.venv/bin/python glyph_engine.py demo/andthebee_logo.mp4 --play --loop --fill
+.venv/bin/python glyph_engine.py demo/kongi_gyuli.mp4
 ```
+
+```bash
+.venv/bin/python glyph_engine.py demo/kongi_gyuli.mp4 --play --loop --fill
+```
+
+내 영상도 그대로 넣으면 됩니다: `.venv/bin/python glyph_engine.py 내영상.mp4` → `out/내영상.glyph.mp4`
 
 ## 옵션
 
@@ -102,8 +110,8 @@ SMART / CONSTRUCTION / SOLUTIONS 태그라인이 크게 이어집니다 (효과�
 | 파일 | 내용 |
 |---|---|
 | `glyph_engine.py` | 엔진 — 영상 → 아스키 아트 영상 / 터미널 재생 |
-| `make_demo.py` | 데모 영상 생성기 (Pillow로 그린 캐릭터 애니메이션 + numpy 칩튠) |
 | `make_logo.py` | 앤더비 로고 영상 생성기 (SVG 마크를 직접 래스터화해 애니메이션 + 효과음) |
+| `make_demo.py` | 콩이 & 귤이 데모 영상 생성기 (Pillow로 그린 캐릭터 애니메이션 + numpy 칩튠) |
 | `assets/andthebee-mark.svg` | 앤더비 로고 마크 (andthebee.net) |
 | `requirements.txt` | numpy, pillow |
 | `docs/` | README 미리보기 이미지 |
