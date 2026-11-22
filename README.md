@@ -119,7 +119,8 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 | `--start S --duration D` | 구간만 변환 |
 | `--still T` | T초 지점 한 장만 PNG로 (느낌을 빠르게 확인할 때) |
 | `--play [--loop] [--mute]` | 터미널 실시간 재생 (실제 터미널 창에서 실행해야 해요) |
-| `--fill` | `--play`에서 터미널 전체를 채움 (그림 가장자리를 잘라 더 크게) |
+| `--fill` | `--play`에서 터미널 전체를 채움 (그림 가장자리를 잘라 더 크게). 빼면 그림 전체가 창 가운데에 나옴 |
+| `--no-status` | `--play`에서 그림 아래 상태 줄(시간·크기)을 숨김 (발표용) |
 | `--gamma --black --sat --gain --dither --edge --edge-share` | 밝기·채도·윤곽 감도 미세 조정 |
 
 전체 목록은 `.venv/bin/python glyph_engine.py -h`
