@@ -439,8 +439,9 @@ def render(args):
     print(f"\n  -> {out}", file=sys.stderr)
 
 
-def ansi(idx, ink, shown, space, bg) -> str:
-    """One frame as 24-bit colour escape codes; colour only changes when the ink does."""
+def ansi(idx, ink, shown, space, bg, x0=0, y0=0) -> str:
+    """One frame as 24-bit colour escape codes, its top-left at terminal cell (x0, y0);
+    colour only changes when the ink does."""
     q = ink.astype(np.int32) & 0xF8
     keys = (q[..., 0] << 16 | q[..., 1] << 8 | q[..., 2]).tolist()
     lines = []
@@ -455,7 +456,7 @@ def ansi(idx, ink, shown, space, bg) -> str:
                 last = k
             parts.append(shown[i])
         lines.append("".join(parts))
-    return "\x1b[H" + "\x1b[0m\n".join(lines) + "\x1b[0m"
+    return "".join(f"\x1b[{y0 + r + 1};{x0 + 1}H{line}\x1b[0m" for r, line in enumerate(lines))
 
 
 def play(args):
@@ -478,13 +479,14 @@ def play(args):
         rows = th - 2
         cols = max(1, round(rows * aspect / cell))
     grid = (cols, rows, 4, 4 * max(1, round(1 / cell)))
+    x0, y0 = (tw - cols * span) // 2, max(0, (th - 1 - rows) // 2)  # centred, status line below
     shown = [c if unicodedata.east_asian_width(c) in "WF" else c + " " * (span - 1) for c in glyphs.chars]
     bg = "\x1b[48;2;%d;%d;%dm" % BACKDROP[args.theme]
     total = max(0.0, info["duration"] - args.start)
     total = min(total, args.duration) if args.duration else total
     count = int(round(total * FPS)) or None
     sound = None
-    sys.stdout.write("\x1b[?25l\x1b[2J")
+    sys.stdout.write("\x1b[?25l" + bg + "\x1b[2J")  # the whole window takes the backdrop colour
     try:
         while True:
             if info["audio"] and not args.mute and shutil.which("ffplay"):
@@ -502,9 +504,10 @@ def play(args):
                 if lag < 0:
                     time.sleep(-lag)
                 idx, ink = analyze(rgb, grid, glyphs, args)
-                sys.stdout.write(ansi(idx, ink, shown, glyphs.space, bg) +
-                                 f"\n\x1b[2m glyph_engine · t {i / FPS:5.2f}s · {cols}x{rows}"
-                                 f" · ctrl+c to stop\x1b[0m\x1b[K")
+                status = "" if args.no_status else (
+                    f"\x1b[{y0 + rows + 1};{x0 + 1}H{bg}\x1b[2m glyph_engine · t {i / FPS:5.2f}s"
+                    f" · {cols}x{rows} · ctrl+c to stop\x1b[22m\x1b[K\x1b[0m")
+                sys.stdout.write(ansi(idx, ink, shown, glyphs.space, bg, x0, y0) + status)
                 sys.stdout.flush()
             if sound:
                 sound.wait()
@@ -541,6 +544,8 @@ def main():
     ap.add_argument("--fill", action="store_true",
                     help="with --play: fill the whole terminal, cropping the picture's edges")
     ap.add_argument("--mute", action="store_true", help="no sound")
+    ap.add_argument("--no-status", action="store_true",
+                    help="with --play: hide the status line under the picture (for presenting)")
     look = ap.add_argument_group("look")
     look.add_argument("--gamma", type=float, default=0.9, help="<1 brightens the mids")
     look.add_argument("--black", type=float, default=0.06, help="brightness treated as empty")
